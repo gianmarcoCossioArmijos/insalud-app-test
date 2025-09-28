@@ -1,6 +1,7 @@
 package com.insalud.app_test.entidad;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,10 +23,11 @@ import lombok.Setter;
 @Entity
 @Table(name = "usuario")
 public class Usuario {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_usuario;
+    @Column(unique = true)
     private String usuario;
     private String contraseña;
     @OneToOne(cascade = CascadeType.ALL)
