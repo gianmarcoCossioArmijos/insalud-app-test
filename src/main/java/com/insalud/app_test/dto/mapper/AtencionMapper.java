@@ -25,7 +25,7 @@ public class AtencionMapper {
                 .build();
     }
 
-    public AtencionResponse aAtencionResponse (Atencion atencion) {
+    public AtencionResponse aAtencionRespuesta (Atencion atencion) {
         return new AtencionResponse(
                 atencion.getId_atencion(),
                 atencion.getFecha(),
