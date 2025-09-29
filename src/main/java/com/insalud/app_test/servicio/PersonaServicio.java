@@ -36,4 +36,28 @@ public class PersonaServicio {
         var persona = mapper.aPersonaEntidad(request);
         return String.format("Persona con ID %s registrado exitosamente",repositorio.save(persona).getId_persona());
     }
+
+    public PersonaResponse obtenerPersonaPorId(Integer id) {
+        var persona = repositorio.findById_personaAndEstado(id, true)
+                .orElseThrow(() -> new RuntimeException(String.format("Persona con ID %s no encontrada", id)));
+        return mapper.aPersonaRespuesta(persona);
+    }
+
+    public String actualizarPersona(Integer id, PersonaRequest request) {
+        var persona = repositorio.findById_personaAndEstado(id, true)
+                .orElseThrow(() -> new RuntimeException(String.format("Persona con ID %s no encontrada", id)));
+        persona.setNombre(request.nombre());
+        persona.setEmail(request.email());
+        persona.setEstado(request.estado());
+        repositorio.save(persona);
+        return String.format("Persona con ID %s actualizada exitosamente", id);
+    }
+
+    public String eliminarPersona(Integer id) {
+        var persona = repositorio.findById_personaAndEstado(id,true)
+                .orElseThrow(() -> new RuntimeException(String.format("Persona con ID %s no encontrada", id)));
+        persona.setEstado(false);
+        repositorio.save(persona);
+        return String.format("Persona con ID %s eliminada exitosamente", id);
+    }
 }

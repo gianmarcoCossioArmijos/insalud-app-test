@@ -36,4 +36,26 @@ public class EspecialidadServicio {
         var especialidad = mapper.aEspecialidadEntidad(request);
         return String.format("Especialidad con ID %s registrada exitosamente", repositorio.save(especialidad));
     }
+
+    public EspecialidadResponse obtenerEspecialidadPorId(Integer id) {
+        var especialidad = repositorio.findById_especialidadAndEstado(id, true)
+                .orElseThrow(() -> new RuntimeException(String.format("Especialidad con ID %s no encontrada", id)));
+        return mapper.aEspecialidadRespuesta(especialidad);
+    }
+
+    public String actualizarEspecialidad(Integer id, EspecialidadRequest request) {
+        var especialidad = repositorio.findById_especialidadAndEstado(id, true)
+                .orElseThrow(() -> new RuntimeException(String.format("Especialidad con ID %s no encontrada", id)));
+        especialidad.setNombre(request.nombre());
+        repositorio.save(especialidad);
+        return String.format("Especialidad con ID %s actualizada exitosamente", id);
+    } 
+
+    public String eliminarEspecialidad(Integer id) {
+        var especialidad = repositorio.findById_especialidadAndEstado(id, true)
+                .orElseThrow(() -> new RuntimeException(String.format("Especialidad con ID %s no encontrada", id)));
+        especialidad.setEstado(false);
+        repositorio.save(especialidad);
+        return String.format("Especialidad con ID %s eliminada exitosamente", id);
+    }
 }
