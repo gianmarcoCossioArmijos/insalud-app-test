@@ -43,8 +43,8 @@ public class PersonaControlador {
     
     @Operation(summary = "Registrar persona", description = "Registrar nueva persona")
     @PostMapping
-    public String registrarPersona(@Valid @RequestBody PersonaRequest request) {
-        return servicio.registrarPersona(request);
+    public  ResponseEntity<String> registrarPersona(@Valid @RequestBody PersonaRequest request) {
+        return  ResponseEntity.ok(servicio.registrarPersona(request));
     }
 
     @Operation(summary = "Listar persona", description = "Listar persona por ID")
@@ -55,13 +55,13 @@ public class PersonaControlador {
 
     @Operation(summary = "Actualizar persona", description = "Actualizar una persona por ID")
     @PutMapping("/{id}")
-    public String actualizarPersona(@Valid @RequestBody PersonaRequest request, @PathVariable("id") Integer id) {
-        return servicio.actualizarPersona(id, request);
+    public ResponseEntity<String> actualizarPersona(@Valid @RequestBody PersonaRequest request, @PathVariable("id") Integer id) {
+        return  ResponseEntity.ok(servicio.actualizarPersona(id, request));
     }
 
     @Operation(summary = "Eliminar persona", description = "Eliminar una persona por ID")
     @PatchMapping("/{id}")
-    public String eliminarPersona(@PathVariable("id") Integer id) {
-        return servicio.eliminarPersona(id);
+    public ResponseEntity<String> eliminarPersona(@PathVariable("id") Integer id) {
+        return  ResponseEntity.ok(servicio.eliminarPersona(id));
     }
 }

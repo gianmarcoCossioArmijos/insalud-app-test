@@ -43,25 +43,25 @@ public class EspecialidadControlador {
     
     @Operation(summary = "Registrar especialidad", description = "Registrar nueva especialidad")
     @PostMapping
-    public String registrarEspecialidad(@Valid @RequestBody EspecialidadRequest request) {
-        return servicio.registrarEspecialidad(request);
+    public ResponseEntity<String> registrarEspecialidad(@Valid @RequestBody EspecialidadRequest request) {
+        return ResponseEntity.ok(servicio.registrarEspecialidad(request));
     }
 
     @Operation(summary = "Listar especialidad", description = "Listar especialidad por ID")
     @GetMapping("/{id}")
-    public EspecialidadResponse obtenerEspecialidadPorId(@PathVariable("id") Integer id) {
-        return servicio.obtenerEspecialidadPorId(id);
+    public ResponseEntity<EspecialidadResponse> obtenerEspecialidadPorId(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(servicio.obtenerEspecialidadPorId(id));
     }
 
     @Operation(summary = "Actualizar especialidad", description = "Actualizar especialidad por ID")
     @PutMapping("/{id}")
-    public String actualizarEspecialidad(@Valid @RequestBody EspecialidadRequest request, @PathVariable("id") Integer id) {
-        return servicio.actualizarEspecialidad(id, request);
+    public ResponseEntity<String> actualizarEspecialidad(@Valid @RequestBody EspecialidadRequest request, @PathVariable("id") Integer id) {
+        return ResponseEntity.ok(servicio.actualizarEspecialidad(id, request));
     }
 
     @Operation(summary = "Eliminar especialidad", description = "Eliminar especialidad por ID")
     @PatchMapping("/{id}")
-    public String eliminarEspecialidad(@PathVariable("id") Integer id) {
-        return servicio.eliminarEspecialidad(id);
+    public ResponseEntity<String> eliminarEspecialidad(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(servicio.eliminarEspecialidad(id));
     }
 }

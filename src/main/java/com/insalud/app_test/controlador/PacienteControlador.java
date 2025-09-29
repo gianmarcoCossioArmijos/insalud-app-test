@@ -43,8 +43,8 @@ public class PacienteControlador {
     
     @Operation(summary = "Registrar paciente", description = "Registrar nuevo paciente")
     @PostMapping
-    public String registrarPaciente(@Valid @RequestBody PacienteRequest request) {
-        return servicio.registrarPaciente(request);
+    public ResponseEntity<String> registrarPaciente(@Valid @RequestBody PacienteRequest request) {
+        return ResponseEntity.ok(servicio.registrarPaciente(request));
     }
 
     @Operation(summary = "Listar paciente", description = "Listar paciente por ID")
@@ -55,13 +55,13 @@ public class PacienteControlador {
 
     @Operation(summary = "Actualizar paciente", description = "Actualizar paciente por ID")
     @PutMapping("/{id}")
-    public String actualizarPaciente(@Valid @RequestBody PacienteRequest request, @PathVariable("id") Integer id) {
-        return servicio.actualizarPaciente(id, request);
+    public ResponseEntity<String> actualizarPaciente(@Valid @RequestBody PacienteRequest request, @PathVariable("id") Integer id) {
+        return ResponseEntity.ok(servicio.actualizarPaciente(id, request));
     }
 
     @Operation(summary = "Eliminar paciente", description = "Eliminar paciente por ID")
     @PatchMapping("/{id}")
-    public String eliminarPaciente(@PathVariable("id") Integer id) {
-        return servicio.eliminarPaciente(id);
+    public ResponseEntity<String> eliminarPaciente(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(servicio.eliminarPaciente(id));
     }
 }

@@ -13,9 +13,7 @@ public class ConfiguracionSeguridad {
         
         http.csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .anyRequest().authenticated())
-            .formLogin(form -> form.disable())
-            .httpBasic(basic -> basic.disable());
+                .anyRequest().authenticated());
         return http.build();
     }
 }

@@ -43,25 +43,25 @@ public class AtencionControlador {
     
     @Operation(summary = "Registrar atencion", description = "Registrar nueva atencion")
     @PostMapping
-    public String registrarAtencion(@Valid @RequestBody AtencionRequest request) {
-        return servicio.registrarAtencion(request);
+    public ResponseEntity<String> registrarAtencion(@Valid @RequestBody AtencionRequest request) {
+        return ResponseEntity.ok(servicio.registrarAtencion(request));
     }
 
     @Operation(summary = "Listar atencion", description = "Listar atencion por ID")
     @GetMapping("/{id}")
-    public AtencionResponse obtenerAtencionPorId(@PathVariable("id") Integer id) {
-        return servicio.obtenerAtencionPorId(id);
+    public ResponseEntity<AtencionResponse> obtenerAtencionPorId(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(servicio.obtenerAtencionPorId(id));
     }
 
     @Operation(summary = "Actualizar atencion", description = "Actualizar atencion por ID")
     @PutMapping("/{id}")
-    public String actualizarAtencion(@Valid @RequestBody AtencionRequest request, @PathVariable("id") Integer id) {
-        return servicio.actualizarAtencion(id, request);
+    public ResponseEntity<String> actualizarAtencion(@Valid @RequestBody AtencionRequest request, @PathVariable("id") Integer id) {
+        return ResponseEntity.ok(servicio.actualizarAtencion(id, request));
     }
 
     @Operation(summary = "Eliminar atencion", description = "Eliminar atencion por ID")
     @PatchMapping("/{id}")
-    public String eliminarAtencion(@PathVariable("id") Integer id) {
-        return servicio.eliminarAtencion(id);
+    public ResponseEntity<String> eliminarAtencion(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(servicio.eliminarAtencion(id));
     }
 }
