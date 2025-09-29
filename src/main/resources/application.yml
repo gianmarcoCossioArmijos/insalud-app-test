@@ -2,20 +2,28 @@ server:
   port: 8083
 
 spring:
-    application:
-        name: app-test
-    datasource:
-        url: jdbc:postgresql://aws-1-us-east-2.pooler.supabase.com:5432/postgres?sslmode=require
-        username: postgres.cjtodhwmhklbouizsgge
-        password: 123456
-        driver-class-name: org.postgresql.Driver
-        hikari:
-            maximum-pool-size: 10
-            minimum-idle: 5
-            idle-timeout: 300000
-            connection-timeout: 20000
-    jpa:
-        database-platform: org.hibernate.dialect.PostgreSQLDialect
-        hibernate:
-            ddl-auto: update
-        show-sql: true
+  security:
+    user:
+      name: admin
+      password: 123456
+  application:
+    name: app-test
+  datasource:
+    url: jdbc:postgresql://aws-1-us-east-2.pooler.supabase.com:5432/postgres?sslmode=require
+    username: postgres.cjtodhwmhklbouizsgge
+    password: 123456
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 300000
+      connection-timeout: 20000
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
