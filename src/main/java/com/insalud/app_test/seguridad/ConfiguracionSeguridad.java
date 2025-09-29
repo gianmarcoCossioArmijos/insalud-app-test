@@ -17,7 +17,8 @@ public class ConfiguracionSeguridad {
                     "/swagger-ui.html",
                     "/swagger-ui/**",
                     "/v3/api-docs/**",
-                    "/auth/**").permitAll()
+                    "/auth/**",
+                    "/api/v1/**").permitAll()
                 .anyRequest().authenticated())
             .formLogin(form -> form.disable())
             .httpBasic(basic -> basic.disable());
