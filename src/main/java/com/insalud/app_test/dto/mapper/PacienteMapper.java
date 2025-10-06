@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import com.insalud.app_test.dto.request.PacienteRequest;
 import com.insalud.app_test.dto.response.PacienteResponse;
 import com.insalud.app_test.entidad.Paciente;
-import com.insalud.app_test.entidad.Persona;
 
 @Service
 public class PacienteMapper {
@@ -14,15 +13,12 @@ public class PacienteMapper {
         return Paciente.builder()
             .rol(request.rol())
             .estado(request.estado())
-            .persona(Persona.builder()
-                    .id_persona(request.id_persona())
-                    .build())
             .build();
     }
 
     public PacienteResponse aPacienteRespuesta(Paciente paciente) {
         return new PacienteResponse(
-            paciente.getId_paciente(),
+            paciente.getId_rol(),
             paciente.getRol(),
             paciente.getEstado(),
             paciente.getPersona().getId_persona(),

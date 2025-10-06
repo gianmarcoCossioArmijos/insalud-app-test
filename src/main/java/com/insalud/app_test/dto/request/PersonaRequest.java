@@ -4,7 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 public record PersonaRequest(
-    
+
     @NotNull(message="El nombre no puede ser nulo")
     @NotBlank(message="El nombre no puede estar vacio")
     String nombre,
@@ -13,5 +13,7 @@ public record PersonaRequest(
     String email,
     @NotNull(message="El estado no puede ser nulo")
     @NotBlank(message="El estado no puede estar vacio")
-    Boolean estado
+    Boolean estado,
+    Integer id_paciente,
+    Integer id_empleado
 ) {}

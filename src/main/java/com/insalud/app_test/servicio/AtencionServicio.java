@@ -8,8 +8,7 @@ import com.insalud.app_test.dto.mapper.AtencionMapper;
 import com.insalud.app_test.dto.request.AtencionRequest;
 import com.insalud.app_test.dto.response.AtencionResponse;
 import com.insalud.app_test.repositorio.AtencionRepositorio;
-import com.insalud.app_test.repositorio.EmpleadoRepositorio;
-import com.insalud.app_test.repositorio.PacienteRepositorio;
+import com.insalud.app_test.repositorio.PersonaRepositorio;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,8 +17,7 @@ import lombok.RequiredArgsConstructor;
 public class AtencionServicio {
 
     private final AtencionRepositorio repositorio;
-    private final PacienteRepositorio pacienteRepositorio;
-    private final EmpleadoRepositorio empleadoRepositorio;
+    private final PersonaRepositorio personaRepositorio;
     private final AtencionMapper mapper;
 
     public List<AtencionResponse> obetenerTodasLasAtenciones () {
@@ -52,9 +50,9 @@ public class AtencionServicio {
                 .orElseThrow(() -> new RuntimeException(String.format("Atencion con ID %s no encontrada", id)));
         atencion.setFecha(request.fecha());
         atencion.setMotivo(request.motivo());
-        atencion.setPaciente(pacienteRepositorio.findById(request.id_paciente())
+        atencion.setPaciente(personaRepositorio.findById(request.id_paciente())
                 .orElseThrow(() -> new RuntimeException(String.format("Atencion con ID paciente %s no encontrado", request.id_paciente()))));
-        atencion.setEmpleado(empleadoRepositorio.findById(request.id_empleado())
+        atencion.setEmpleado(personaRepositorio.findById(request.id_empleado())
                 .orElseThrow(() -> new RuntimeException(String.format("Atencion con ID empleado %s no encontrado", request.id_empleado()))));
         repositorio.save(atencion);
         return String.format("Atencion con ID %s actualizada exitosamente", id);

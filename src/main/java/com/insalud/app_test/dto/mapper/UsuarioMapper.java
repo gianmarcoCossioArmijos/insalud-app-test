@@ -10,21 +10,27 @@ import com.insalud.app_test.entidad.Usuario;
 @Service
 public class UsuarioMapper {
 
-    public Usuario aUsuarioEntidad(UsuarioRequest request) {
+    public Usuario aUsuarioEntidad(UsuarioRequest request, Persona persona) {
         return Usuario.builder()
-                .usuario(request.usuario())
-                .contraseña(request.contraseña())
-                .persona(Persona.builder()
-                        .id_persona(request.id_persona())
-                        .build())
+                .username(request.username())
+                .password(request.password())
+                .persona(persona)
                 .build();
     }
 
+    public Usuario aUsuario(String username, String password, Persona persona) {
+        return Usuario.builder()
+                .username(username)
+                .password(password)
+                .persona(persona)
+                .build();
+    }
+ 
     public UsuarioResponse aUsuarioRespuesta(Usuario usuario) {
         return new UsuarioResponse(
                 usuario.getId_usuario(),
-                usuario.getUsuario(),
-                usuario.getContraseña(),
+                usuario.getUsername(),
+                usuario.getPassword(),
                 usuario.getPersona().getId_persona(),
                 usuario.getPersona().getNombre(),
                 usuario.getPersona().getEmail(),

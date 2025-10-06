@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 
 @Tag(name = "Especialidades", description = "Gestion de especialidades")
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/especialidades")
+@RequestMapping("api/v1/especialidades")
 @RestController
 public class EspecialidadControlador {
 

@@ -5,8 +5,7 @@ import org.springframework.stereotype.Service;
 import com.insalud.app_test.dto.request.AtencionRequest;
 import com.insalud.app_test.dto.response.AtencionResponse;
 import com.insalud.app_test.entidad.Atencion;
-import com.insalud.app_test.entidad.Empleado;
-import com.insalud.app_test.entidad.Paciente;
+import com.insalud.app_test.entidad.Persona;
 
 @Service
 public class AtencionMapper {
@@ -16,11 +15,11 @@ public class AtencionMapper {
                 .fecha(request.fecha())
                 .motivo(request.motivo())
                 .estado(request.estado())
-                .paciente(Paciente.builder()
-                            .id_paciente(request.id_paciente())
+                .paciente(Persona.builder()
+                            .id_persona(request.id_paciente())
                             .build())
-                .empleado(Empleado.builder()
-                            .id_empleado(request.id_empleado())
+                .empleado(Persona.builder()
+                            .id_persona(request.id_empleado())
                             .build())
                 .build();
     }
@@ -31,12 +30,10 @@ public class AtencionMapper {
                 atencion.getFecha(),
                 atencion.getMotivo(),
                 atencion.getEstado(),
-                atencion.getPaciente().getId_paciente(),
-                atencion.getPaciente().getRol(),
-                atencion.getPaciente().getEstado(),
-                atencion.getEmpleado().getId_empleado(),
-                atencion.getEmpleado().getRol(),
-                atencion.getEmpleado().getEstado()
+                atencion.getPaciente().getId_persona(),
+                atencion.getPaciente().getNombre(),
+                atencion.getEmpleado().getId_persona(),
+                atencion.getEmpleado().getNombre()
         );
     }
 }

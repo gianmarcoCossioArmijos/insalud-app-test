@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 
 @Tag(name = "Empleados", description = "Gestion de empleados")
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/empleados")
+@RequestMapping("api/v1/empleados")
 @RestController
 public class EmpleadoControlador {
 

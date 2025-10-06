@@ -8,7 +8,6 @@ import com.insalud.app_test.dto.mapper.PacienteMapper;
 import com.insalud.app_test.dto.request.PacienteRequest;
 import com.insalud.app_test.dto.response.PacienteResponse;
 import com.insalud.app_test.repositorio.PacienteRepositorio;
-import com.insalud.app_test.repositorio.PersonaRepositorio;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,7 +16,6 @@ import lombok.RequiredArgsConstructor;
 public class PacienteServicio {
 
     private final PacienteRepositorio repositorio;
-    private final PersonaRepositorio personaRepositorio;
     private final PacienteMapper mapper;
 
     public List<PacienteResponse> obtenerTodosLosPacientes() {
@@ -36,7 +34,7 @@ public class PacienteServicio {
 
     public String registrarPaciente(PacienteRequest request) {
         var paciente = mapper.aPacienteEntidad(request);
-        return String.format("Paciente con ID %s registrado exitosamente",repositorio.save(paciente).getId_paciente());
+        return String.format("Paciente con ID %s registrado exitosamente",repositorio.save(paciente).getId_rol());
     }
 
     public PacienteResponse obtenerPacientePorId(Integer id) {
@@ -49,8 +47,6 @@ public class PacienteServicio {
         var paciente = repositorio.findById_pacienteAndEstado(id, true)
                 .orElseThrow(() -> new RuntimeException(String.format("Paciente con ID %s no encontrado", id)));
         paciente.setRol(request.rol());
-        paciente.setPersona(personaRepositorio.findById(request.id_persona())
-                .orElseThrow(() -> new RuntimeException(String.format("Paciente con ID de persona %s no encontrada", request.id_persona()))));
         repositorio.save(paciente);
         return String.format("Paciente con ID %s actualizado exitosamente", id);
     }

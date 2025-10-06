@@ -12,3 +12,5 @@ public record AutenticacionRequest(
     @NotBlank(message = "La contraseña no puede estar vacia")
     String contraseña
 ) {}
+
+

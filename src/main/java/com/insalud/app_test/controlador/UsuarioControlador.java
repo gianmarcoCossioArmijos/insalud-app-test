@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 
 @Tag(name = "Usuarios", description = "Gestión de usuarios")
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/usuarios")
+@RequestMapping("api/v1/usuarios")
 @RestController
 public class UsuarioControlador {
 
@@ -33,12 +33,6 @@ public class UsuarioControlador {
     @GetMapping
     public ResponseEntity<List<UsuarioResponse>> obtenerTodosLosUsuarios() {
         return ResponseEntity.ok(servicio.obtenerTodosLosUsuarios());
-    }
-    
-    @Operation(summary = "Registrar usuario", description = "Registrar nuevo usuario")
-    @PostMapping
-    public ResponseEntity<String> registrarUsuario(@Valid @RequestBody UsuarioRequest request) {
-        return  ResponseEntity.ok(servicio.registrarUsuario(request));
     }
 
     @Operation(summary = "Listar usuario", description = "Listar usuario por ID")

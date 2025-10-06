@@ -6,7 +6,6 @@ import com.insalud.app_test.dto.request.EmpleadoRequest;
 import com.insalud.app_test.dto.response.EmpleadoResponse;
 import com.insalud.app_test.dto.response.EspecialidadResponse;
 import com.insalud.app_test.entidad.Empleado;
-import com.insalud.app_test.entidad.Persona;
 
 @Service
 public class EmpleadoMapper {
@@ -15,15 +14,12 @@ public class EmpleadoMapper {
         return Empleado.builder()
             .rol(request.rol())
             .estado(request.estado())
-            .persona(Persona.builder()
-                    .id_persona(request.id_persona())
-                    .build())
             .build();
     }
 
     public EmpleadoResponse aEmpleadoRespuesta(Empleado empleado) {
         return new EmpleadoResponse(
-            empleado.getId_empleado(),
+            empleado.getId_rol(),
             empleado.getRol(),
             empleado.getEstado(),
             empleado.getPersona().getId_persona(),

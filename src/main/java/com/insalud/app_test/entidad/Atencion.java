@@ -31,9 +31,9 @@ public class Atencion {
     private String motivo;
     private Boolean estado;
     @ManyToOne
-    @JoinColumn(name = "id_paciente", referencedColumnName = "id_paciente")
-    private Paciente paciente;
+    @JoinColumn(name = "id_paciente", referencedColumnName = "id_persona")
+    private Persona paciente;
     @ManyToOne
-    @JoinColumn(name = "id_empleado", referencedColumnName = "id_empleado")
-    private Empleado empleado;
+    @JoinColumn(name = "id_empleado", referencedColumnName = "id_persona")
+    private Persona empleado;
 }

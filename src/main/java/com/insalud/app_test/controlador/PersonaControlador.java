@@ -21,9 +21,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
-@Tag(name = "Personas", description = "Gestión de personas")
+@Tag(name = "Usuarios", description = "Gestión de usuarios")
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/personas")
+@RequestMapping("api/v1/personas")
 @RestController
 public class PersonaControlador {
 

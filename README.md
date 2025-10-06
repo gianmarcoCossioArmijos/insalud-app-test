@@ -1,4 +1,4 @@
-# insaludPrueba Técnica - Practicante TI
+# insaludPrueba Técnica
 
 ## Arquitectura y Diseño del Código
 

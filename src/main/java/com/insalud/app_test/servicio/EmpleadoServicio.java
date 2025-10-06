@@ -9,7 +9,6 @@ import com.insalud.app_test.dto.request.EmpleadoRequest;
 import com.insalud.app_test.dto.response.EmpleadoResponse;
 import com.insalud.app_test.repositorio.EmpleadoRepositorio;
 import com.insalud.app_test.repositorio.EspecialidadRespositorio;
-import com.insalud.app_test.repositorio.PersonaRepositorio;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,7 +17,6 @@ import lombok.RequiredArgsConstructor;
 public class EmpleadoServicio {
 
     private final EmpleadoRepositorio repositorio;
-    private final PersonaRepositorio personaRepositorio;
     private final EspecialidadRespositorio especialidadRepositorio;
     private final EmpleadoMapper mapper;
 
@@ -38,7 +36,7 @@ public class EmpleadoServicio {
 
     public String registrarEmpleado (EmpleadoRequest request) {
         var empleado = mapper.aEmpleadoEntidad(request);
-        return String.format("Empleado con ID %s registrado exitosamente",repositorio.save(empleado).getId_empleado());
+        return String.format("Empleado con ID %s registrado exitosamente",repositorio.save(empleado).getId_rol());
     }
 
     public EmpleadoResponse obtenerEmpleadoPorId(Integer id) {
@@ -51,8 +49,6 @@ public class EmpleadoServicio {
         var empleado = repositorio.findById_empleadoAndEstado(id, true)
                 .orElseThrow(() -> new RuntimeException(String.format("Empleado con ID %s no encontrado", id)));
         empleado.setRol(request.rol());
-        empleado.setPersona(personaRepositorio.findById(request.id_persona())
-                .orElseThrow(() -> new RuntimeException(String.format("Empleado con ID persona %s no encontrada", request.id_persona()))));
         empleado.setEspecialidades(List.of(especialidadRepositorio.findById(request.id_especialidad())
                 .orElseThrow(() -> new RuntimeException(String.format("Empleado con ID especialidad %s no encontrada", request.id_especialidad())))));
         repositorio.save(empleado);

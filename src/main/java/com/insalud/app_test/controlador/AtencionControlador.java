@@ -23,7 +23,7 @@ import lombok.RequiredArgsConstructor;
 
 @Tag(name = "Atenciones", description = "Gestion de atenciones")
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/atenciones")
+@RequestMapping("api/v1/atenciones")
 @RestController
 public class AtencionControlador {
 

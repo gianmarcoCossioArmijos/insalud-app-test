@@ -2,7 +2,6 @@ package com.insalud.app_test.entidad;
 
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,11 +28,10 @@ public class Empleado {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_empleado;
-    private String rol;
+    private int id_rol;
     private Boolean estado;
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_persona", referencedColumnName = "id_persona")
+    private String rol;
+    @OneToOne(mappedBy = "empleado")
     private Persona persona;
     @ManyToMany
     @JoinTable(name = "medico_especialidad", joinColumns = @JoinColumn(name = "id_empleado"), inverseJoinColumns = @JoinColumn(name = "id_especialidad"))

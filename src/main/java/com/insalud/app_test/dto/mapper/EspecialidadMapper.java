@@ -24,7 +24,7 @@ public class EspecialidadMapper {
             especialidad.getEstado(),
             especialidad.getEmpleados().stream()
                     .map(empleado -> new EmpleadoResponse(
-                        empleado.getId_empleado(),
+                        empleado.getId_rol(),
                         empleado.getRol(),
                         empleado.getEstado(),
                         empleado.getPersona().getId_persona(),

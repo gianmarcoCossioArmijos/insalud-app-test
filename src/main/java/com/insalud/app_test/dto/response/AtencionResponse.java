@@ -9,9 +9,7 @@ public record AtencionResponse(
     String motivo,
     Boolean estado,
     Integer id_paciente,
-    String rol_paciente,
-    Boolean estado_paciente,
+    String nombrepaciente,
     Integer id_empleado,
-    String rol_empleado,
-    Boolean estado_empleado
+    String nombre_empleado
 ) {}
