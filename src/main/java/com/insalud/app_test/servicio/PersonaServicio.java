@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import com.insalud.app_test.dto.mapper.PersonaMapper;
 import com.insalud.app_test.dto.request.PersonaRequest;
 import com.insalud.app_test.dto.response.PersonaResponse;
+import com.insalud.app_test.repositorio.EmpleadoRepositorio;
+import com.insalud.app_test.repositorio.PacienteRepositorio;
 import com.insalud.app_test.repositorio.PersonaRepositorio;
 
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,8 @@ import lombok.RequiredArgsConstructor;
 public class PersonaServicio {
 
     private final PersonaRepositorio repositorio;
+    private final EmpleadoRepositorio empleadoRepositorio;
+    private final PacienteRepositorio pacienteRepositorio;
     private final PersonaMapper mapper;
 
     public List<PersonaResponse> obtenerTodasLasPersonas() {
@@ -33,8 +37,17 @@ public class PersonaServicio {
     }
 
     public String registrarPersona(PersonaRequest request) {
-        var persona = mapper.aPersonaEntidad(request);
-        return String.format("Persona con ID %s registrado exitosamente",repositorio.save(persona).getId_persona());
+        int idRegistro;
+        if (request.id_empleado() != null && request.id_empleado() != 0) {
+            var empleado = empleadoRepositorio.findById(request.id_empleado())
+                    .orElseThrow(() -> new RuntimeException(String.format("Empleado con ID %s no encontrada", request.id_empleado())));
+            idRegistro = repositorio.save(mapper.aPersonaEntidad(request,empleado,null)).getId_persona();
+        } else {
+            var paciente = pacienteRepositorio.findById(request.id_paciente())
+                    .orElseThrow(() -> new RuntimeException(String.format("Paciente con ID %s no encontrada", request.id_paciente())));
+            idRegistro = repositorio.save(mapper.aPersonaEntidad(request,null,paciente)).getId_persona();
+        }
+        return String.format("Persona con ID %s registrado exitosamente", idRegistro);
     }
 
     public PersonaResponse obtenerPersonaPorId(Integer id) {

@@ -4,7 +4,6 @@ import org.springframework.stereotype.Service;
 
 import com.insalud.app_test.dto.request.EmpleadoRequest;
 import com.insalud.app_test.dto.response.EmpleadoResponse;
-import com.insalud.app_test.dto.response.EspecialidadResponse;
 import com.insalud.app_test.entidad.Empleado;
 
 @Service
@@ -21,17 +20,6 @@ public class EmpleadoMapper {
         return new EmpleadoResponse(
             empleado.getId_rol(),
             empleado.getRol(),
-            empleado.getEstado(),
-            empleado.getPersona().getId_persona(),
-            empleado.getPersona().getNombre(),
-            empleado.getPersona().getEmail(),
-            empleado.getPersona().getEstado(),
-            empleado.getEspecialidades().stream()
-                    .map(especialidad -> new EspecialidadResponse(
-                            especialidad.getId_especialidad(),
-                            especialidad.getNombre(),
-                            especialidad.getEstado(),
-                            null))
-                    .toList());
+            empleado.getEstado());
     }
 }

@@ -32,8 +32,6 @@ public class UsuarioServicio {
     }
 
     public String registrarUsuario(UsuarioRequest request) {
-        log.info("--------------- registrarUsuario servicio ---------------");
-        log.info("Request recibido: request={}", request);
         var persona = personaRepositorio.findById(request.id_persona())
                 .orElseThrow(() -> new RuntimeException(String.format("Persona con ID %s no encontrada", request.id_persona())));
         var usuario = mapper.aUsuario(request.username(), encoder.encode(request.password()), persona);

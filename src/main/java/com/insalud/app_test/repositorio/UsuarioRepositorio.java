@@ -11,6 +11,6 @@ import com.insalud.app_test.entidad.Usuario;
 @Repository
 public interface UsuarioRepositorio extends JpaRepository<Usuario, Integer> {
 
-    @Query(value = "SELECT * FROM usuario WHERE usuario= :usuario", nativeQuery = true)
+    @Query(value = "SELECT * FROM usuario WHERE username= :usuario", nativeQuery = true)
     Optional<Usuario> findByUsuario(String usuario);
 }

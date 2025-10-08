@@ -9,7 +9,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,8 +30,7 @@ public class Empleado {
     private int id_rol;
     private Boolean estado;
     private String rol;
-    @OneToOne(mappedBy = "empleado")
-    private Persona persona;
+    
     @ManyToMany
     @JoinTable(name = "medico_especialidad", joinColumns = @JoinColumn(name = "id_empleado"), inverseJoinColumns = @JoinColumn(name = "id_especialidad"))
     private List<Especialidad> especialidades;

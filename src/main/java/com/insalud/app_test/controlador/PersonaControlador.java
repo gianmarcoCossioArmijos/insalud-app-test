@@ -3,6 +3,7 @@ package com.insalud.app_test.controlador;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,36 +30,42 @@ public class PersonaControlador {
 
     private final PersonaServicio servicio;
     
+    @PreAuthorize("hasAnyAuthority('ADMIN','INVITADO')")
     @Operation(summary = "Listar personas", description = "Listar todas las personas")
     @GetMapping
     public ResponseEntity<List<PersonaResponse>> obtenerTodasLasPersonas() {
         return ResponseEntity.ok(servicio.obtenerTodasLasPersonas());
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','INVITADO')")
     @Operation(summary = "Listar personas activas", description = "Listar todas las personas activas")
     @GetMapping("/activo")
     public ResponseEntity<List<PersonaResponse>> obtenerPersonasActivas() {
         return ResponseEntity.ok(servicio.obtenerPersonasActivas());
     }
     
+    @PreAuthorize("hasAnyAuthority('ADMIN','INVITADO')")
     @Operation(summary = "Registrar persona", description = "Registrar nueva persona")
     @PostMapping
     public  ResponseEntity<String> registrarPersona(@Valid @RequestBody PersonaRequest request) {
         return  ResponseEntity.ok(servicio.registrarPersona(request));
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN', 'PACIENTE','MEDICO','INVITADO')")
     @Operation(summary = "Listar persona", description = "Listar persona por ID")
     @GetMapping("/{id}")
     public ResponseEntity<PersonaResponse> obtenerPersonaPorId(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(servicio.obtenerPersonaPorId(id));
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @Operation(summary = "Actualizar persona", description = "Actualizar una persona por ID")
     @PutMapping("/{id}")
     public ResponseEntity<String> actualizarPersona(@Valid @RequestBody PersonaRequest request, @PathVariable("id") Integer id) {
         return  ResponseEntity.ok(servicio.actualizarPersona(id, request));
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @Operation(summary = "Eliminar persona", description = "Eliminar una persona por ID")
     @PatchMapping("/{id}")
     public ResponseEntity<String> eliminarPersona(@PathVariable("id") Integer id) {

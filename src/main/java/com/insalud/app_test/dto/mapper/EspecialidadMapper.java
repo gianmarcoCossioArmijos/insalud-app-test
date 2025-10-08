@@ -26,12 +26,7 @@ public class EspecialidadMapper {
                     .map(empleado -> new EmpleadoResponse(
                         empleado.getId_rol(),
                         empleado.getRol(),
-                        empleado.getEstado(),
-                        empleado.getPersona().getId_persona(),
-                        empleado.getPersona().getNombre(),
-                        empleado.getPersona().getEmail(),
-                        empleado.getPersona().getEstado(),
-                        null
+                        empleado.getEstado()
                     )).toList());
     }
 }

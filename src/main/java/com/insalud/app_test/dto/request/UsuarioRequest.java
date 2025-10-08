@@ -10,11 +10,13 @@ public record UsuarioRequest(
     @NotNull(message="El usuario no puede ser nulo")
     @NotBlank(message="El usuario no puede estar vacio")
     String username,
-     @Schema(description = "contraseña", example = "123456")
+
+    @Schema(description = "contraseña", example = "123456")
     @NotNull(message="La contraseña no puede ser nula")
     @NotBlank(message="La contraseña no puede estar vacia")
     String password,
-     @Schema(description = "ID persona", example = "1")
+
+    @Schema(description = "ID persona", example = "1")
     @NotNull(message="El ID persona no puede ser nulo")
     Integer id_persona
 ) {}

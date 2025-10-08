@@ -20,10 +20,6 @@ public class PacienteMapper {
         return new PacienteResponse(
             paciente.getId_rol(),
             paciente.getRol(),
-            paciente.getEstado(),
-            paciente.getPersona().getId_persona(),
-            paciente.getPersona().getNombre(),
-            paciente.getPersona().getEmail(),
-            paciente.getPersona().getEstado());
+            paciente.getEstado());
     }
 }

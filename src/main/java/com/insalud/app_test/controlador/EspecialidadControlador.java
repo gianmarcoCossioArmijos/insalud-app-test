@@ -3,6 +3,7 @@ package com.insalud.app_test.controlador;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,36 +30,42 @@ public class EspecialidadControlador {
 
     private final EspecialidadServicio servicio;
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','INVITADO')")
     @Operation(summary = "Listar especialidades", description = "Listar todas las especialidades")
     @GetMapping
     public ResponseEntity<List<EspecialidadResponse>> obtenerTodasLasEspecialidades() {
         return ResponseEntity.ok(servicio.obtenerTodasLasEspecialidades());
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','INVITADO')")
     @Operation(summary = "Listar especialidades activas", description = "Listar todas las especialidades activas")
     @GetMapping("/activo")
     public ResponseEntity<List<EspecialidadResponse>> obtenerEspecialidadesActivas() {
         return ResponseEntity.ok(servicio.obtenerEspecialidadesActivas());
     }
     
+    @PreAuthorize("hasAuthority('ADMIN')")
     @Operation(summary = "Registrar especialidad", description = "Registrar nueva especialidad")
     @PostMapping
     public ResponseEntity<String> registrarEspecialidad(@Valid @RequestBody EspecialidadRequest request) {
         return ResponseEntity.ok(servicio.registrarEspecialidad(request));
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @Operation(summary = "Listar especialidad", description = "Listar especialidad por ID")
     @GetMapping("/{id}")
     public ResponseEntity<EspecialidadResponse> obtenerEspecialidadPorId(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(servicio.obtenerEspecialidadPorId(id));
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @Operation(summary = "Actualizar especialidad", description = "Actualizar especialidad por ID")
     @PutMapping("/{id}")
     public ResponseEntity<String> actualizarEspecialidad(@Valid @RequestBody EspecialidadRequest request, @PathVariable("id") Integer id) {
         return ResponseEntity.ok(servicio.actualizarEspecialidad(id, request));
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     @Operation(summary = "Eliminar especialidad", description = "Eliminar especialidad por ID")
     @PatchMapping("/{id}")
     public ResponseEntity<String> eliminarEspecialidad(@PathVariable("id") Integer id) {

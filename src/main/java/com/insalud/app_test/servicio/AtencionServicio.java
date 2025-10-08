@@ -1,5 +1,8 @@
 package com.insalud.app_test.servicio;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -46,9 +49,17 @@ public class AtencionServicio {
     }
 
     public String actualizarAtencion (Integer id, AtencionRequest request) {
+        Date fecha;
+        try {
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");   
+            fecha = formato.parse(request.fecha());
+        } catch (ParseException e) {
+            throw new RuntimeException("Error al  parsear fecha", e);
+        }
         var atencion = repositorio.findById_atencionAndEstado(id, true)
                 .orElseThrow(() -> new RuntimeException(String.format("Atencion con ID %s no encontrada", id)));
-        atencion.setFecha(request.fecha());
+        
+        atencion.setFecha(fecha);
         atencion.setMotivo(request.motivo());
         atencion.setPaciente(personaRepositorio.findById(request.id_paciente())
                 .orElseThrow(() -> new RuntimeException(String.format("Atencion con ID paciente %s no encontrado", request.id_paciente()))));

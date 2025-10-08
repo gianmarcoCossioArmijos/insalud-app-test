@@ -8,29 +8,19 @@ import com.insalud.app_test.entidad.Empleado;
 import com.insalud.app_test.entidad.Paciente;
 import com.insalud.app_test.entidad.Persona;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class PersonaMapper {
 
-    public Persona aPersonaEntidad(PersonaRequest request) {
-        Empleado empleado = null;
-        Paciente paciente = null;
-
-        if (request.id_empleado() != null && request.id_empleado() != 0) {
-            empleado = Empleado.builder()
-                .id_rol(request.id_empleado())
-                .build();
-        } 
-        if (request.id_paciente() != null && request.id_paciente() != 0)  {
-            paciente = Paciente.builder()
-                .id_rol(request.id_paciente())
-                .build();
-        }
+    public Persona aPersonaEntidad(PersonaRequest request, Empleado empleado, Paciente paciente) {
         return Persona.builder()
                 .nombre(request.nombre())
                 .email(request.email())
                 .estado(request.estado())
-                .empleado(empleado)
-                .paciente(paciente)
+                .empleado((empleado != null)? empleado : null)
+                .paciente((paciente != null)? paciente : null)
                 .build();
     }
 
