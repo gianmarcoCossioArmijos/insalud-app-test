@@ -15,6 +15,7 @@ target/
 
 ### VS Code ###
 .vscode/
+/src/main/resources/.env
 
 ### logs ###
 /logs

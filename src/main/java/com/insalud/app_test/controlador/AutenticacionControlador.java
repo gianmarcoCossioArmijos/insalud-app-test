@@ -32,6 +32,7 @@ public class AutenticacionControlador {
     @Operation(summary = "Iniciar sesion", description = "Iniciar sesion con usuario")
     @PostMapping("/login")
     public ResponseEntity<AutenticacionResponse> login(@Valid @RequestBody AutenticacionRequest request) {
+        log.info("LOGIN INFO: llegada de request a controlador {}", request);
         return ResponseEntity.ok(servicio.login(request));
     }
 

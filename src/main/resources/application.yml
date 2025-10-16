@@ -2,12 +2,15 @@ server:
   port: 8083
 
 spring:
+  config:
+    import:
+    - .env[.properties]
   application:
     name: app-test
   datasource:
-    url: jdbc:postgresql://aws-1-us-east-2.pooler.supabase.com:5432/postgres?sslmode=require
-    username: postgres.cjtodhwmhklbouizsgge
-    password: 123456
+    url: ${DB_URL}
+    username: ${DB_USUARIO}
+    password: ${DB_CLAVE}
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 10
@@ -19,6 +22,27 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
+  ai:
+    openai:
+      api-key: ${OPENAI_APIPEKY}
+      chat:
+        options:
+          model: "gpt-4o-mini"
+          temperature: 0
+          max-tokens: 1000
+          top-p: 1.0
+          presence-penalty: 0.0
+          frequency-penalty: 0.0
+      embedding:
+        options:
+          model: "text-embedding-3-small"
+    vectorstore:
+      pgvector:
+        initialize-schema: true  #inicia tablas de pgvector automaticamente
+        index-type: HNSW  #uses HNSW (Hierarchical Navigable Small World)
+        distance-type: COSINE_DISTANCE
+        dimensions: 1536  #define la dimension para vectores (OpenAI embeddings)
+        max-document-batch-size: 10000  #maximo numero de documentos por insercion
 
 springdoc:
   api-docs:

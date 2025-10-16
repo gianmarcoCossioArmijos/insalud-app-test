@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import com.insalud.app_test.dto.mapper.PersonaMapper;
 import com.insalud.app_test.dto.request.PersonaRequest;
 import com.insalud.app_test.dto.response.PersonaResponse;
+import com.insalud.app_test.entidad.Persona;
+import com.insalud.app_test.openai.ServicioRag;
 import com.insalud.app_test.repositorio.EmpleadoRepositorio;
 import com.insalud.app_test.repositorio.PacienteRepositorio;
 import com.insalud.app_test.repositorio.PersonaRepositorio;
@@ -21,6 +23,7 @@ public class PersonaServicio {
     private final EmpleadoRepositorio empleadoRepositorio;
     private final PacienteRepositorio pacienteRepositorio;
     private final PersonaMapper mapper;
+    private final ServicioRag rag;
 
     public List<PersonaResponse> obtenerTodasLasPersonas() {
         return repositorio.findAll()
@@ -36,16 +39,21 @@ public class PersonaServicio {
                 .toList();
     }
 
-    public String registrarPersona(PersonaRequest request) {
+    public String registrarPersona(PersonaRequest request) { 
         int idRegistro;
+        Persona persona;
         if (request.id_empleado() != null && request.id_empleado() != 0) {
             var empleado = empleadoRepositorio.findById(request.id_empleado())
                     .orElseThrow(() -> new RuntimeException(String.format("Empleado con ID %s no encontrada", request.id_empleado())));
-            idRegistro = repositorio.save(mapper.aPersonaEntidad(request,empleado,null)).getId_persona();
+            persona = repositorio.save(mapper.aPersonaEntidad(request,empleado,null));
+            rag.guardarEmpleadoVector(persona, empleado);
+            idRegistro = persona.getId_persona();
         } else {
             var paciente = pacienteRepositorio.findById(request.id_paciente())
                     .orElseThrow(() -> new RuntimeException(String.format("Paciente con ID %s no encontrada", request.id_paciente())));
-            idRegistro = repositorio.save(mapper.aPersonaEntidad(request,null,paciente)).getId_persona();
+            persona = repositorio.save(mapper.aPersonaEntidad(request,null,paciente));
+            rag.guardarPacienteVector(persona, paciente);
+            idRegistro = persona.getId_persona();
         }
         return String.format("Persona con ID %s registrado exitosamente", idRegistro);
     }
