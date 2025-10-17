@@ -24,7 +24,7 @@ spring:
     show-sql: true
   ai:
     openai:
-      api-key: ${OPEN_AI_KEY}
+      api-key:
       chat:
         options:
           model: "gpt-4o-mini"
